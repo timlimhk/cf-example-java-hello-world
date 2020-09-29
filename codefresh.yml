@@ -12,7 +12,7 @@ steps:
       title: Building Image
       type: build
       dockerfile: Dockerfile
-      image_name: codefresh/java-spring-mvc-jdbc
+      image_name: timlimhk/java-spring-mvc-jdbc
 
     launch_composition:
       title: Launch Composition
