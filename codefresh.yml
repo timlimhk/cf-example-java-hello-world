@@ -7,7 +7,13 @@ steps:
       image: maven:latest
       commands:
         - mvn -version
-
+    main_clone:
+      title: Cloning main repository...
+      type: git-clone
+      repo: 'timlimhk/cf-example-java-hello-world'
+      revision: 'master'
+      git: github-1
+    
     build_image:
       title: Building Image
       type: build
