@@ -1,28 +1,28 @@
 version: '1.0'
-
+stages:
+- checkout
+- build
+- exec
 steps:
-
-    unit_test:
-      title: Unit Tests
-      image: maven:latest
-      commands:
-        - mvn -version
-    main_clone:
-      title: Cloning main repository...
-      type: git-clone
-      repo: 'timlimhk/cf-example-java-hello-world'
-      revision: 'master'
-      git: github-1
-    
-    build_image:
-      title: Building Image
-      type: build
-      dockerfile: Dockerfile
-      image_name: timlimhk/java-spring-mvc-jdbc
-
-    launch_composition:
-      title: Launch Composition
-      type: launch-composition
-      composition: docker-compose.yml
-      environment_name: 'java-spring-mvc-jdbc'
-      entry_point: tomcat
+  main_clone:
+    title: Cloning main repository...
+    type: git-clone
+    stage: checkout
+    repo: 'timlimhk/cf-example-java-hello-world'
+    revision: 'master'
+    git: github-1
+  build_my_app:
+    title: Building Node.Js Docker Image
+    type: build
+    stage: build
+    image_name: timlimhk/java-spring-mvc-jdbc
+    working_directory: '.'
+    tag: 'master'
+    dockerfile: Dockerfile
+  launch_composition:
+    stage: 'exec'
+    title: Launch Composition
+    type: launch-composition
+    composition: docker-compose.yml
+    environment_name: 'java-spring-mvc-jdbc'
+    entry_point: tomcat
